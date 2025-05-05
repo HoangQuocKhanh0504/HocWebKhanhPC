@@ -2,12 +2,12 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Danh sách HTML trong repo</title>
+  <title>Danh sách file HTML - hocwebkhanhpc</title>
   <style>
     body {
       font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
       padding: 20px;
-      background: #f5f5f5;
     }
     h1 {
       color: #333;
@@ -17,15 +17,15 @@
       padding: 0;
     }
     li {
-      background: white;
-      margin: 10px 0;
+      background: #fff;
       padding: 10px;
-      border-radius: 8px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+      margin: 8px 0;
+      border-radius: 6px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
     a {
-      color: #007bff;
       text-decoration: none;
+      color: #007bff;
     }
     a:hover {
       text-decoration: underline;
@@ -33,34 +33,43 @@
   </style>
 </head>
 <body>
-  <h1>📄 Danh sách file HTML trong repo</h1>
+  <h1>📄 Danh sách file HTML trong repo: hocwebkhanhpc</h1>
   <ul id="file-list">Đang tải...</ul>
 
   <script>
-    const user = "USERNAME"; // Thay bằng tên GitHub
-    const repo = "REPO";     // Thay bằng tên repo
-    const branch = "main";   // Hoặc 'master'
+    const user = "HoangQuocKhanh0504";
+    const repo = "hocwebkhanhpc";
+    const branch = "root";
 
     async function fetchHtmlFiles() {
-      const res = await fetch(`https://api.github.com/repos/${user}/${repo}/git/trees/${branch}?recursive=1`);
-      const data = await res.json();
-      const htmlFiles = data.tree.filter(file => file.path.endsWith(".html"));
+      try {
+        const res = await fetch(`https://api.github.com/repos/${user}/${repo}/git/trees/${branch}?recursive=1`);
+        const data = await res.json();
 
-      const list = document.getElementById("file-list");
-      list.innerHTML = "";
+        const htmlFiles = data.tree.filter(file => file.path.endsWith(".html"));
 
-      htmlFiles.forEach(file => {
-        const li = document.createElement("li");
-        const link = document.createElement("a");
-        link.href = `https://${user}.github.io/${repo}/${file.path}`;
-        link.textContent = file.path;
-        link.target = "_blank";
-        li.appendChild(link);
-        list.appendChild(li);
-      });
+        const list = document.getElementById("file-list");
+        list.innerHTML = "";
 
-      if (htmlFiles.length === 0) {
-        list.innerHTML = "<li>Không tìm thấy file HTML nào.</li>";
+        if (htmlFiles.length === 0) {
+          list.innerHTML = "<li>Không tìm thấy file HTML nào.</li>";
+          return;
+        }
+
+        htmlFiles.forEach(file => {
+          const li = document.createElement("li");
+          const link = document.createElement("a");
+
+          link.href = `https://${user}.github.io/${repo}/${file.path}`;
+          link.textContent = file.path;
+          link.target = "_blank";
+
+          li.appendChild(link);
+          list.appendChild(li);
+        });
+      } catch (error) {
+        document.getElementById("file-list").innerHTML = "<li>Lỗi khi tải danh sách file. Kiểm tra kết nối hoặc tên nhánh.</li>";
+        console.error(error);
       }
     }
 
