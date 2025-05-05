@@ -6,7 +6,7 @@
         justify-content: center;
         align-items: center;
         height: 100vh;
-        transition: all is ease;
+        transition: all 1s ease;
         background-color: #222;
         color: #fff;
         overflow-y: scroll;
