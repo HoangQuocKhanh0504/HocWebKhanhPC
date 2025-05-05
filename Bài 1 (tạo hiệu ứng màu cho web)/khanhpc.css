@@ -1,0 +1,86 @@
+    body{
+        margin: 0;
+        font-family: 'segeo UI',sans-serif;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        transition: all is ease;
+        background-color: #222;
+        color: #fff;
+        overflow-y: scroll;
+    }
+    ::-webkit-scrollbar {
+        display: none;
+    }
+    html,body{
+        overflow: hidden;
+    }
+    h1{
+        font-size: 3em;
+        margin-bottom: 20px;
+    }
+    .nut-doi-giao-dien{
+        padding: 15px 30px;
+        font-size: 1.2em;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        background: linear-gradient(45deg,#ff4b2b);
+        color: white;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+    .nut-doi-giao-dien:hover{
+        transform: scale(1.1);
+        box-shadow: 0 6px 20px rgba();
+    }
+    /* các hiệu ứng */
+    .mo-dan{
+        animation: moDan 1s ease;
+    }
+    .phong-to{
+        animation: phongTo 1s ease;
+    }
+    .xoay-tron{
+        animation: xoayTron 1s ease;
+    }
+    .truot-xuong{
+        animation: truotXuong 1s ease;
+    }
+    @keyframes moDan {
+        0%{
+            opacity: 0;
+        }
+        100%{
+            opacity: 1;
+        }
+    }
+
+    @keyframes phongTo {
+        0%{
+                transform: scale(0.5);
+        }
+        100%{
+            transform: scale(1);
+        }
+    }
+
+    @keyframes xoayTron {
+        0%{
+            transform: rotate(180deg);
+        }
+        100%{
+            transform: rotate(0deg);
+        }
+    }
+
+    @keyframes truotXuong {
+        0%{
+            transform: translateY(-100px);
+        }
+        100%{
+            transform: translateY(0);
+        }
+    }
