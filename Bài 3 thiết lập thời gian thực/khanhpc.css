@@ -1,0 +1,36 @@
+body{
+    height: 100vh;
+    background: linear-gradient(135deg, #00e5ff, #ff4081, #8e24aa);
+    background-size: 400% 400%;
+    animation: gradientBackground 5s ease infinite;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI',sans-serif;
+}
+.glass-clock{
+    background: rgba(255,255,255,0.1);
+    box-shadow: 0 8px 32px 0 rgba(0,0,0,0.37);
+    padding: 30px 50px;
+    border-radius: 20px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rbga(255,255,255,0.18);
+    color: #fff;
+    font-size: 3rem;
+    letter-spacing: 2px;
+    text-align: center;
+}
+
+@keyframes gradientBackground {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
