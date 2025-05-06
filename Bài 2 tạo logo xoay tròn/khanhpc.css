@@ -23,7 +23,9 @@ body{
 ::-webkit-scrollbar{
     display: none;
 }
-
+html,body{
+    overflow: hidden;
+}
 .khanhpc{
     width: 104px;
     height: 104px;
