@@ -1,0 +1,153 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+
+/* Reset và căn giữa */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: linear-gradient(135deg, #00e5ff, #ff4081, #8e24aa);
+  background-size: 400% 400%;
+  animation: gradientBackground 5s ease infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Roboto Mono', monospace;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+}
+/*rgb cho nền*/
+@keyframes gradientBackground {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+.dong-ho-container {
+  position: relative;
+  width: 350px;
+  height: 350px;
+  max-width: 90vw;
+  max-height: 90vw;
+  background: #ecf0f1;
+  border-radius: 50%;
+  box-shadow:
+    inset 0 0 30px #aaa,
+    0 8px 15px rgb(0 0 0 / 0.3);
+}
+
+/* Số giờ */
+.so {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  color: #2c3e50;
+  font-weight: 700;
+  font-size: 1.5rem;
+  text-align: center;
+  line-height: 30px;
+  user-select: none;
+}
+
+/* Đặt vị trí các số từ 1 đến 12 xung quanh đồng hồ */
+/* 12 số được đặt bằng toán học hình học */
+/* Trung tâm đồng hồ là 175,175 (nửa của 350) */
+/* Bán kính cho các số: khoảng 140px */
+/* Tính toán top và left cho mỗi số */
+/* Chúng ta sẽ làm điều này trong JavaScript */
+
+/* Container các kim đồng hồ */
+.kim {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-origin: center bottom;
+  transform-style: preserve-3d;
+}
+
+/* Các kiểu chung cho các kim đồng hồ */
+.kim-element {
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  background: #2c3e50;
+  border-radius: 10px;
+  transform-origin: bottom center;
+  transition: transform 0.05s cubic-bezier(0.4, 2.3, 0.3, 1);
+}
+/* Kim giờ */
+.kim-element.gio {
+  width: 8px;
+  height: 90px;
+  background: #34495e;
+  border-radius: 6px;
+  z-index: 3;
+}
+/* Kim phút */
+.kim-element.phut {
+  width: 6px;
+  height: 130px;
+  background: #2980b9;
+  border-radius: 5px;
+  z-index: 2;
+}
+/* Kim giây */
+.kim-element.giay {
+  width: 2.5px;
+  height: 150px;
+  background: #e74c3c;
+  border-radius: 2.5px;
+  z-index: 4;
+}
+
+/* Vòng tròn trung tâm */
+.vong-tron-trung-tam {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 18px;
+  height: 18px;
+  margin-left: -9px;
+  margin-top: -9px;
+  background: #2c3e50;
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(0,0,0,0.3);
+  z-index: 5;
+}
+
+/* Responsive - đảm bảo vừa với chiều cao tối đa 600px và chiều rộng 350px */
+@media (max-width: 400px) {
+  .dong-ho-container {
+    width: 90vw;
+    height: 90vw;  
+  }
+  .so {
+    font-size: 1.2rem;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+  }
+  .kim-element.gio {
+    width: 6px;
+    height: 70px;
+  }
+  .kim-element.phut {
+    width: 4.5px;
+    height: 105px;
+  }
+  .kim-element.giay {
+    width: 2px;
+    height: 120px;
+  }
+  .vong-tron-trung-tam {
+    width: 14px;
+    height: 14px;
+    margin-left: -7px;
+    margin-top: -7px;
+  }
+}
