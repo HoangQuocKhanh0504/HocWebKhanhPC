@@ -1,0 +1,63 @@
+body {
+  background: #000;
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.dong-ho {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.so {
+  width: 60px;
+  height: 120px;
+  position: relative;
+  margin: 4px;
+}
+
+.phan-doan {
+  position: absolute;
+  background-color: var(--mau-tat);
+  border-radius: 6px;
+  transition: background-color 0.2s;
+}
+
+.bat {
+  background-color: var(--mau-bat);
+}
+
+.a { top: 0; left: 12px; right: 12px; height: 12px; }
+.b { top: 12px; right: 0; width: 12px; height: 48px; }
+.c { bottom: 12px; right: 0; width: 12px; height: 48px; }
+.d { bottom: 0; left: 12px; right: 12px; height: 12px; }
+.e { bottom: 12px; left: 0; width: 12px; height: 48px; }
+.f { top: 12px; left: 0; width: 12px; height: 48px; }
+.g { top: 54px; left: 12px; right: 12px; height: 12px; }
+
+.ky-tu {
+  font-size: 64px;
+  color: var(--mau-bat);
+  align-self: center;
+  transition: opacity 0.3s ease;
+}
+
+.bi-mat {
+  opacity: 0;
+}
+
+.ngay-thang {
+  color: var(--mau-bat);
+  font-family: monospace;
+  font-size: 24px;
+}
+
+:root {
+  --mau-bat: red;
+  --mau-tat: #330000;
+}
