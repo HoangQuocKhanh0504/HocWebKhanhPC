@@ -214,8 +214,13 @@
     // Kiểm tra chế độ sáng tối khi tải lại trang
     if (localStorage.getItem("theme") === "dark") {
       document.body.classList.add("dark");
+      document.getElementById("theme-toggle").textContent = "💡";
+    }
+        if (localStorage.getItem("theme") === "light") {
+      document.body.classList.add("light");
       document.getElementById("theme-toggle").textContent = "🌙";
     }
+
 
     fetchHtmlFiles();
   </script>
