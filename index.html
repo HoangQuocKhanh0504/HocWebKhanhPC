@@ -148,12 +148,13 @@
         const res = await fetch(`https://api.github.com/repos/${user}/${repo}/git/trees/${branch}?recursive=1`);
         const data = await res.json();
 
-        // Ensure 'data.tree' is an array before calling 'filter'
+        // Kiểm tra nếu 'data.tree' là một mảng hợp lệ
         if (!Array.isArray(data.tree)) {
-          throw new Error('Expected data.tree to be an array.');
+          throw new Error('Dữ liệu không hợp lệ.');
         }
 
-        const htmlFiles = data.tree.filter(file => file.path.endsWith("khanhpc.html"));
+        // Lọc tất cả các file có phần mở rộng .html
+        const htmlFiles = data.tree.filter(file => file.path.endsWith(".html"));
         const list = document.getElementById("file-list");
         list.innerHTML = "";
 
@@ -164,7 +165,7 @@
 
         const folders = new Set();
         htmlFiles.forEach(file => {
-          // Chỉ lấy thư mục chứa file 'khanhpc.html'
+          // Lấy thư mục chứa file HTML
           const folder = file.path.includes('/') ? file.path.split('/').slice(0, -1).join('/') : "";
           if (folder) folders.add(folder);
         });
