@@ -192,7 +192,21 @@
       const btn = document.getElementById("theme-toggle");
       body.classList.toggle("dark");
       btn.classList.toggle("rotate");
-      btn.textContent = body.classList.contains("dark") ? "🌙" : "💡";
+
+      // Lưu trạng thái chế độ sáng tối vào localStorage
+      if (body.classList.contains("dark")) {
+        localStorage.setItem("theme", "dark");
+        btn.textContent = "🌙";
+      } else {
+        localStorage.setItem("theme", "light");
+        btn.textContent = "💡";
+      }
+    }
+
+    // Kiểm tra chế độ sáng tối khi tải lại trang
+    if (localStorage.getItem("theme") === "dark") {
+      document.body.classList.add("dark");
+      document.getElementById("theme-toggle").textContent = "🌙";
     }
 
     fetchHtmlFiles();
