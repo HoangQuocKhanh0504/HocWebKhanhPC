@@ -108,10 +108,7 @@
   }
 
   const allKeys = document.querySelectorAll('.white-key, .black-key');
-  allKeys.forEach(k => {
-    k.addEventListener('mousedown', onClickKey);
-    k.addEventListener('touchstart', e => {
-      e.preventDefault();
-      onClickKey(e);
-    }, { passive: false });
-  });// File JavaScript cơ bản 
+  allKeys.forEach(key => {
+    key.addEventListener('mousedown', onClickKey);
+    key.addEventListener('touchstart', onClickKey);
+  });
