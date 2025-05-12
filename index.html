@@ -134,7 +134,7 @@
   </style>
 </head>
 <body>
-  <button class="toggle-btn" id="theme-toggle" onclick="toggleDark()">💡</button>
+  <button class="toggle-btn" id="theme-toggle" onclick="toggleDark()"></button>
   <h1>📁 Bài học hôm nay</h1>
   <ul id="file-list">Đang tải...</ul>
 
@@ -204,25 +204,42 @@
       // Lưu trạng thái chế độ sáng tối vào localStorage
       if (body.classList.contains("dark")) {
         localStorage.setItem("theme", "dark");
-        btn.textContent = "🌙";
+        btn.textContent = "💡";
       } else {
         localStorage.setItem("theme", "light");
-        btn.textContent = "💡";
+        btn.textContent = "🌙";
       }
     }
 
     // Kiểm tra chế độ sáng tối khi tải lại trang
     if (localStorage.getItem("theme") === "dark") {
       document.body.classList.add("dark");
-      document.getElementById("theme-toggle").textContent = "🌙";
+      document.getElementById("theme-toggle").textContent = "💡";
     }
         if (localStorage.getItem("theme") === "light") {
       document.body.classList.add("light");
-      document.getElementById("theme-toggle").textContent = "💡";
+      document.getElementById("theme-toggle").textContent = "🌙";
     }
 
 
     fetchHtmlFiles();
+      document.addEventListener('DOMContentLoaded', function () {
+    document.body.style.userSelect = 'none';
+
+    // Chặn các sự kiện chọn văn bản
+    document.body.addEventListener('selectstart', function (e) {
+      e.preventDefault();
+    });
+
+    // Chặn bôi đen bằng chuột
+    document.body.addEventListener('mousedown', function (e) {
+      e.preventDefault();
+    });
+
+    document.body.addEventListener('mousemove', function (e) {
+      window.getSelection().removeAllRanges();
+    });
+  });
   </script>
 </body>
 </html>
