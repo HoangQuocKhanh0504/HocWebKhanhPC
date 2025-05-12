@@ -1,121 +1,141 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/png" href="GD.png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="GD.png" />
   <title>Hocwebkhanhpc</title>
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-light: #f0f0f0;
-      --bg-dark: #1f1f1f;
-      --text-light: #333;
-      --text-dark: #eee;
-      --card-light: #fff;
-      --card-dark: #2a2a2a;
+      --bg: #f3f4f6;
+      --bg-dark: #1e1e2f;
+      --card: #ffffff;
+      --card-dark: #2a2a40;
+      --text: #111827;
+      --text-dark: #e5e7eb;
+      --primary: #6366f1;
+      --hover: #4f46e5;
       --shadow: rgba(0, 0, 0, 0.1);
-      --primary: #4f46e5;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
     body {
       font-family: 'Quicksand', sans-serif;
-      background-color: var(--bg-light);
-      color: var(--text-light);
-      padding: 30px;
-      margin: 0;
-      transition: all 0.3s ease-in-out;
+      background-color: var(--bg);
+      color: var(--text);
+      padding: 40px 20px;
+      transition: all 0.4s ease;
     }
 
-    .dark-mode {
+    body.dark {
       background-color: var(--bg-dark);
       color: var(--text-dark);
     }
 
     h1 {
-      font-size: 2.2rem;
       text-align: center;
-      margin-bottom: 30px;
+      font-size: 2.5rem;
+      margin-bottom: 40px;
+      animation: fadeInDown 1s ease;
     }
 
     ul {
-      max-width: 700px;
+      list-style: none;
+      max-width: 800px;
       margin: auto;
       padding: 0;
-      list-style: none;
     }
 
     li {
-      background: var(--card-light);
-      margin: 12px 0;
-      padding: 15px 20px;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px var(--shadow);
-      transition: transform 0.2s ease, background-color 0.3s ease;
+      background-color: var(--card);
+      margin: 15px 0;
+      padding: 18px 24px;
+      border-radius: 14px;
+      box-shadow: 0 6px 15px var(--shadow);
+      transform: translateY(20px);
+      opacity: 0;
+      animation: fadeInUp 0.6s ease forwards;
+      animation-delay: calc(var(--i) * 0.1s);
+      text-align: center;
     }
 
-    .dark-mode li {
-      background: var(--card-dark);
-    }
-
-    li:hover {
-      transform: translateY(-3px);
+    body.dark li {
+      background-color: var(--card-dark);
     }
 
     a {
       color: var(--primary);
       text-decoration: none;
       font-weight: bold;
-      font-size: 1.1rem;
-      word-break: break-all;
+      font-size: 1.4rem;
+      display: inline-block;
+      transition: all 0.3s ease;
     }
 
     a:hover {
-      text-decoration: underline;
+      color: var(--hover);
+      transform: scale(1.1);
     }
 
-    .toggle-mode {
+    .toggle-btn {
       position: fixed;
       top: 20px;
       right: 20px;
-      background: var(--primary);
-      color: white;
+      background: none;
       border: none;
-      padding: 10px 16px;
-      border-radius: 8px;
+      font-size: 2rem;
       cursor: pointer;
-      font-weight: bold;
-      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
-      transition: background 0.3s;
+      transition: transform 0.4s ease;
     }
 
-    .toggle-mode:hover {
-      background: #3730a3;
+    .toggle-btn.rotate {
+      transform: rotate(180deg);
+    }
+
+    @keyframes fadeInUp {
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeInDown {
+      from {
+        transform: translateY(-20px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
     }
 
     @media (max-width: 600px) {
-      body {
-        padding: 15px;
-      }
-
       h1 {
-        font-size: 1.6rem;
+        font-size: 1.8rem;
       }
 
       li {
-        padding: 12px 16px;
+        padding: 14px 18px;
       }
 
-      .toggle-mode {
-        padding: 8px 12px;
-        font-size: 0.9rem;
+      .toggle-btn {
+        font-size: 1.5rem;
+        top: 10px;
+        right: 10px;
       }
     }
   </style>
 </head>
 <body>
-  <button class="toggle-mode" onclick="toggleDarkMode()">🌙 Chế độ tối</button>
-  <h1>📄 Danh sách file HTML - Hocwebkhanhpc</h1>
+  <button class="toggle-btn" id="theme-toggle" onclick="toggleDark()">💡</button>
+  <h1>📁 Danh sách Thư mục chứa HTML</h1>
   <ul id="file-list">Đang tải...</ul>
 
   <script>
@@ -127,7 +147,6 @@
       try {
         const res = await fetch(`https://api.github.com/repos/${user}/${repo}/git/trees/${branch}?recursive=1`);
         const data = await res.json();
-
         const htmlFiles = data.tree.filter(file => file.path.endsWith(".html"));
         const list = document.getElementById("file-list");
         list.innerHTML = "";
@@ -137,28 +156,46 @@
           return;
         }
 
+        const folders = new Set();
         htmlFiles.forEach(file => {
+          const folder = file.path.includes('/') ? file.path.split('/').slice(0, -1).join('/') : "";
+          if (folder) folders.add(folder);
+        });
+
+        // Sắp xếp thư mục theo thứ tự số
+        const sortedFolders = Array.from(folders).sort((a, b) => {
+          const numA = a.match(/\d+/) ? parseInt(a.match(/\d+/)[0]) : 0;
+          const numB = b.match(/\d+/) ? parseInt(b.match(/\d+/)[0]) : 0;
+          return numA - numB;
+        });
+
+        sortedFolders.forEach((folder, index) => {
           const li = document.createElement("li");
-          const link = document.createElement("a");
+          li.style.setProperty('--i', index);
 
-          link.href = `https://${user}.github.io/${repo}/${file.path}`;
-          link.textContent = file.path;
-          link.target = "_blank";
+          const a = document.createElement("a");
+          a.href = `https://${user}.github.io/${repo}/${folder === "" ? "" : folder + "/"}`;
+          a.textContent = `📁 ${folder}`;
+          a.target = "_blank";
 
-          li.appendChild(link);
+          li.appendChild(a);
           list.appendChild(li);
         });
-      } catch (error) {
-        document.getElementById("file-list").innerHTML = "<li>Lỗi khi tải danh sách file. Kiểm tra kết nối hoặc tên nhánh.</li>";
-        console.error(error);
+      } catch (e) {
+        console.error(e);
+        document.getElementById("file-list").innerHTML = "<li>Lỗi khi tải danh sách file.</li>";
       }
     }
 
-    fetchHtmlFiles();
-
-    function toggleDarkMode() {
-      document.body.classList.toggle("dark-mode");
+    function toggleDark() {
+      const body = document.body;
+      const btn = document.getElementById("theme-toggle");
+      body.classList.toggle("dark");
+      btn.classList.toggle("rotate");
+      btn.textContent = body.classList.contains("dark") ? "🌙" : "💡";
     }
+
+    fetchHtmlFiles();
   </script>
 </body>
 </html>
