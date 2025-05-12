@@ -147,6 +147,12 @@
       try {
         const res = await fetch(`https://api.github.com/repos/${user}/${repo}/git/trees/${branch}?recursive=1`);
         const data = await res.json();
+
+        // Ensure 'data.tree' is an array before calling 'filter'
+        if (!Array.isArray(data.tree)) {
+          throw new Error('Expected data.tree to be an array.');
+        }
+
         const htmlFiles = data.tree.filter(file => file.path.endsWith(".html"));
         const list = document.getElementById("file-list");
         list.innerHTML = "";
