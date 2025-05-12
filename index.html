@@ -153,7 +153,7 @@
           throw new Error('Expected data.tree to be an array.');
         }
 
-        const htmlFiles = data.tree.filter(file => file.path.endsWith(".html"));
+        const htmlFiles = data.tree.filter(file => file.path.endsWith("khanhpc.html"));
         const list = document.getElementById("file-list");
         list.innerHTML = "";
 
@@ -164,6 +164,7 @@
 
         const folders = new Set();
         htmlFiles.forEach(file => {
+          // Chỉ lấy thư mục chứa file 'khanhpc.html'
           const folder = file.path.includes('/') ? file.path.split('/').slice(0, -1).join('/') : "";
           if (folder) folders.add(folder);
         });
@@ -180,7 +181,7 @@
           li.style.setProperty('--i', index);
 
           const a = document.createElement("a");
-          a.href = `https://${user}.github.io/${repo}/${folder === "" ? "" : folder + "/"}`;
+          a.href = `https://${user}.github.io/${repo}/${folder === "" ? "" : folder + "/"}khanhpc.html`;
           a.textContent = `📁 ${folder}`;
           a.target = "_blank";
 
