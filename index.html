@@ -2,39 +2,120 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <link rel="icon" type="image/png" href="GD.png"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="GD.png">
   <title>Hocwebkhanhpc</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --bg-light: #f0f0f0;
+      --bg-dark: #1f1f1f;
+      --text-light: #333;
+      --text-dark: #eee;
+      --card-light: #fff;
+      --card-dark: #2a2a2a;
+      --shadow: rgba(0, 0, 0, 0.1);
+      --primary: #4f46e5;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f0f0f0;
-      padding: 20px;
+      font-family: 'Quicksand', sans-serif;
+      background-color: var(--bg-light);
+      color: var(--text-light);
+      padding: 30px;
+      margin: 0;
+      transition: all 0.3s ease-in-out;
     }
+
+    .dark-mode {
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
+    }
+
     h1 {
-      color: #333;
+      font-size: 2.2rem;
+      text-align: center;
+      margin-bottom: 30px;
     }
+
     ul {
-      list-style: none;
+      max-width: 700px;
+      margin: auto;
       padding: 0;
+      list-style: none;
     }
+
     li {
-      background: #fff;
-      padding: 10px;
-      margin: 8px 0;
-      border-radius: 6px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      background: var(--card-light);
+      margin: 12px 0;
+      padding: 15px 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px var(--shadow);
+      transition: transform 0.2s ease, background-color 0.3s ease;
     }
+
+    .dark-mode li {
+      background: var(--card-dark);
+    }
+
+    li:hover {
+      transform: translateY(-3px);
+    }
+
     a {
+      color: var(--primary);
       text-decoration: none;
-      color: #007bff;
+      font-weight: bold;
+      font-size: 1.1rem;
+      word-break: break-all;
     }
+
     a:hover {
       text-decoration: underline;
+    }
+
+    .toggle-mode {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+      transition: background 0.3s;
+    }
+
+    .toggle-mode:hover {
+      background: #3730a3;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 15px;
+      }
+
+      h1 {
+        font-size: 1.6rem;
+      }
+
+      li {
+        padding: 12px 16px;
+      }
+
+      .toggle-mode {
+        padding: 8px 12px;
+        font-size: 0.9rem;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>📄 Hocwebkhanhpc</h1>
+  <button class="toggle-mode" onclick="toggleDarkMode()">🌙 Chế độ tối</button>
+  <h1>📄 Danh sách file HTML - Hocwebkhanhpc</h1>
   <ul id="file-list">Đang tải...</ul>
 
   <script>
@@ -48,7 +129,6 @@
         const data = await res.json();
 
         const htmlFiles = data.tree.filter(file => file.path.endsWith(".html"));
-
         const list = document.getElementById("file-list");
         list.innerHTML = "";
 
@@ -75,6 +155,10 @@
     }
 
     fetchHtmlFiles();
+
+    function toggleDarkMode() {
+      document.body.classList.toggle("dark-mode");
+    }
   </script>
 </body>
 </html>
