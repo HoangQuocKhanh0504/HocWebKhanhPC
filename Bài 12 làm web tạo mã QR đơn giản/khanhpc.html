@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bài 12</title>
+  <link rel="stylesheet" href="khanhpc.css">
+  <link rel="icon" href="GD.png">
+</head>
+
+<body>
+    <div class="container">
+        <H1> Tạo mã QR|KHANHPC</H1>
+        <div class="input-group"></div>
+        <input type="text" id="text" placeholder="Nhập nội dung">
+        <input type="color" id="color" value="#000000" title="Chọn màu">
+        <button onclick="generateQR()">tạo ngay</button>
+    </div>
+    <div id="qrcode"></div>
+    <button id="downloadBtn" onclick="downloadQR()" style="display: none;">Tải về ngay</button>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="khanhpc.js"></script>
+</body>
+</html>
